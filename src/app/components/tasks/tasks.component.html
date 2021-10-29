@@ -1,0 +1,9 @@
+<div *ngIf="tasks$; else elseBlock">
+   <app-task-item *ngFor="let task of (tasks$ | async)" [task]="task" (delete)="onDeleteTask($event)"
+      (toggleReminder)="toggle($event)"></app-task-item>
+</div>
+
+
+<ng-template #elseBlock>
+   <h1>You have not any tasks.</h1>
+</ng-template>
