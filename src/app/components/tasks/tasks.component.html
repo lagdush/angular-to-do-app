@@ -1,11 +1,11 @@
 <app-add-task (onAddTask)="addTask($event)"></app-add-task>
 
-<div *ngIf="tasks$; else elseBlock">
-   <app-task-item *ngFor="let task of (tasks$ | async)" [task]="task" (delete)="onDeleteTask($event)"
+<div *ngIf="(tasks$ | async) as tasks; else elseBlock">
+   <app-task-item *ngFor="let task of tasks" [task]="task" (delete)="onDeleteTask($event)"
       (toggleReminder)="toggle($event)"></app-task-item>
 </div>
 
 
 <ng-template #elseBlock>
-   <h1>You have not any tasks.</h1>
+   <h1>Loading...</h1>
 </ng-template>

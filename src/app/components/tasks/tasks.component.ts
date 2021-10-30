@@ -1,7 +1,8 @@
 import { TaskService } from './../../services/task.service';
 import { Component, OnInit } from '@angular/core';
 import { Task } from 'src/app/mock.taskas';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-tasks',
@@ -10,15 +11,21 @@ import { Observable } from 'rxjs';
 })
 export class TasksComponent implements OnInit {
   tasks$!: Observable<Task[]>;
+  test$ = new Subject<any>();
 
-  constructor(private taskService: TaskService) {}
+  constructor(private taskService: TaskService) {
+    this.test$.next(this.tasks$);
+  }
 
   ngOnInit(): void {
     this.getTasks();
   }
 
   onDeleteTask(id: number) {
-    this.taskService.deleteTask(id).subscribe(() => this.getTasks());
+    this.taskService
+      .deleteTask(id)
+      .pipe(tap(() => this.getTasks()))
+      .subscribe();
   }
 
   getTasks() {
@@ -31,6 +38,9 @@ export class TasksComponent implements OnInit {
   }
 
   addTask(task: Task) {
-    this.taskService.sendTask(task).subscribe();
+    this.taskService
+      .sendTask(task)
+      .pipe(tap(() => this.getTasks()))
+      .subscribe();
   }
 }
