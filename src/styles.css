@@ -39,6 +39,11 @@ body {
   transform: scale(0.98);
 }
 
+.btn:disabled {
+  background: rgba(0, 0, 0, 0.678);
+  cursor: not-allowed;
+}
+
 .btn-block {
   display: block;
   width: 100%;

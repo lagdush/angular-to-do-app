@@ -16,7 +16,13 @@
       "id": 3,
       "text": "Meeting at School",
       "day": "May 6th at 1:30pm",
-      "reminder": false
+      "reminder": true
+    },
+    {
+      "reminder": true,
+      "text": "Learn Agular",
+      "day": "now",
+      "id": 4
     }
   ]
 }
